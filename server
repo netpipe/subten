@@ -225,18 +225,22 @@ EEBr60LXpbOWECTo8BdM/nu/1/8PLNe/914ucPIAAAAASUVORK5CYII=" align="left"/>
 <center><H2>Linux / Windows Remote Admin tool</H2></center>
 
 <hr>
+<br>
+<center><b>Functions List</b><br></center>
+<hr>
+<A HREF="http://localhost:9000/servers?screen" style="color: #cc0000">ScreenShot</A><br>
+<A HREF="http://localhost:9000/servers?all" style="color: #cc0000">Machine Status</A><br>
+<A HREF="http://localhost:9000/servers?eject" style="color: #cc0000">eject cdrom</A><br>
+<A HREF="http://localhost:9000/servers?debug" style="color: #cc0000">debug</A><br>
+<A HREF="http://localhost:9000/servers?corkscrew" style="color: #cc0000">corkscrew</A><br>
+<A HREF="http://localhost:9000/servers?dns2tcp" style="color: #cc0000">dns2tcp</A><br>
+<A HREF="http://localhost:9000/servers?users" style="color: #cc0000">User/Group List</A><br>
+<A HREF="http://localhost:9000/servers?beep" style="color: #cc0000">beep</A><br>
 
-<b>Functions List</b><br>
-<A HREF="http://localhost:9000/servers?screen">ScreenShot</A>
-<br>
-<A HREF="http://localhost:9000/servers?all">All Commands</A>
-<br>
-<A HREF="http://localhost:9000/servers?users">User/Group List</A>
-<br>
-<A HREF="http://localhost:9000/servers?users">User/Group List</A>
-<br>
-<A HREF="http://localhost:9000/servers?users">User/Group List</A>
-<br>
+<form action="servers">
+    exec bash command <input type="text" name="bash">
+  <input type="submit" value="Send">
+</form>
 <form action="servers">
     Send Chat Message <input type="text" name="chat">
   <input type="submit" value="Send">
