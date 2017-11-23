@@ -14,9 +14,14 @@ DOC_ROOT=./tmp #$1
 RESP=./tmp/webresp
 mkdir -p $DOC_ROOT #test [[ -d $DOC_ROOT ]] || mkdir $DOC_ROOT
 [ -p $RESP ] || mkfifo $RESP
-#MYIP=$(ip route show | grep -o 'src [\.0-9]\+' | uniq | cut -d ' ' -f2)
-MYIP=localhost
+MYIP=$(ip route show | grep -o 'src [\.0-9]\+' | uniq | cut -d ' ' -f2)
+#MYIP=localhost
 PORT=9000
+if [ $MYIP != localhost ];then
+cat editsrv | sed s/localhost:9000/$MYIP:$PORT/g > server 
+else 
+cat editsrv > server
+fi
 while true ; do
 ( cat $RESP ) | nc -l -p $PORT | sed -ue 's/\r//g' | (
 REQ=`while read L && [ -n "$L" ] ; do echo "$L" ; done`
@@ -84,7 +89,7 @@ if [ $command ]; then
             echo "them" >>  $DOC_ROOT/texts
             zenity --title "Chat" --text "$args" --entry >>  $DOC_ROOT/texts && echo "<br>" >>  $DOC_ROOT/texts &
 
-            echo $(cat server;echo "messages<br>";cat $DOC_ROOT/texts;echo '<meta http-equiv="refresh" content="10; url=http://localhost:9000/servers?chat=" />') > $DOC_ROOT/servers;
+            echo $(cat server;echo "messages<br>";cat $DOC_ROOT/texts;echo "<meta http-equiv=\"refresh\" content=\"10; url=http://$MYIP:$PORT/servers?chat=\" />") > $DOC_ROOT/servers;
             else
             echo $(cat server;echo "messages<br>";cat $DOC_ROOT/texts;) > $DOC_ROOT/servers;
              fi
