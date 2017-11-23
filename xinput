@@ -12,7 +12,7 @@
 #was thinking run for 10 seconds every minute or use a custom shell
 DOC_ROOT=./tmp #$1
 RESP=./tmp/webresp
-mkdir $DOC_ROOT
+mkdir -p $DOC_ROOT #test [[ -d $DOC_ROOT ]] || mkdir $DOC_ROOT
 [ -p $RESP ] || mkfifo $RESP
 #MYIP=$(ip route show | grep -o 'src [\.0-9]\+' | uniq | cut -d ' ' -f2)
 MYIP=localhost
@@ -78,7 +78,7 @@ if [ $command ]; then
 
     if [ $command == chat ];then
             #zenity --question --text="Are you there?"
-            zenity zenity --text-info --width 530 --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts &
+            zenity --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts &
            #libnotify
     fi
     if [ $command == notify ];then
