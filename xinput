@@ -48,12 +48,16 @@ if [ $command ]; then
     if [ $command == beep ];then
            echo 'beepsoundccccccccccc ' > /dev/dsp
     fi
-    if [ $command == proxy ];then
-          echo "$args"
+    if [ $command == proxy ];then   
+          echo "$args"&
     fi
+    if [ $command == corkscrew ];then #http proxy
+         # corkscrew proxy.example.com 8080 %h %p &
+    fi
+
     if [ $command == chat ];then
             #zenity --question --text="Are you there?"
-            zenity --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts
+            zenity zenity --text-info --width 530 --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts &
            #libnotify
     fi
     if [ $command == notify ];then
