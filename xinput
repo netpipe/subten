@@ -14,8 +14,8 @@ DOC_ROOT=./tmp #$1
 RESP=./tmp/webresp
 mkdir -p $DOC_ROOT #test [[ -d $DOC_ROOT ]] || mkdir $DOC_ROOT
 [ -p $RESP ] || mkfifo $RESP
-MYIP=$(ip route show | grep -o 'src [\.0-9]\+' | uniq | cut -d ' ' -f2)
-#MYIP=localhost
+#MYIP=$(ip route show | grep -o 'src [\.0-9]\+' | uniq | cut -d ' ' -f2)
+MYIP=localhost
 PORT=9000
 if [ $MYIP != localhost ];then
 cat editsrv | sed s/localhost:9000/$MYIP:$PORT/g > server 
@@ -30,7 +30,7 @@ FULL_PATH="$DOC_ROOT$SERV_PATH"
 command=$(echo $SERV_PATH | cut -d '?' -f 2 | cut -d '=' -f 1)
 args1=$(echo $SERV_PATH | cut -d '=' -f 3)
 argstmp=$(echo $SERV_PATH | cut -d '=' -f 2)
-args=$(echo $argstmp |sed -e 's/%21/!/g' -e 's/%23/#/g' -e 's/%24/$/g' -e 's/%26/\&/g' -e "s/%27/'/g" -e 's/%28/(/g' -e 's/%29/)/g' | sed s/"%20"/" "/g | sed s/"%27"/"'"/g |sed s/"%3E"/">"/g ) #limit length of response 256
+args=$(echo $argstmp |sed -e 's/+/ /g' -e 's/%21/!/g' -e 's/%22/\"/g' -e 's/%23/#/g' -e 's/%24/$/g' -e 's/%26/\&/g' -e "s/%27/'/g" -e 's/%28/(/g' -e 's/%29/)/g' | sed s/"%20"/" "/g | sed s/"%27"/"'"/g |sed s/"%3E"/">"/g ) #limit length of response 256
 
 echo $command
 path=`echo $SERV_PATH | cut -d "?" -f1`
@@ -46,10 +46,16 @@ if [ $command ]; then
         echo $(cat "./server";uname -a ) > "$DOC_ROOT/servers"
     fi
     if [ $command == eject ];then
-        eject -T /dev/sr0
+        eject
+        echo $(cat "./server";echo "ejected disk" ) > "$DOC_ROOT/servers"
     fi
     if [ $command == bash ];then
-       $args
+        if [ "$args" ];then               
+        $args > $DOC_ROOT/debug &
+        echo $(cat "./server";echo "executred $args";cat $DOC_ROOT/debug;echo "<meta http-equiv=\"refresh\" content=\"10; url=http://$MYIP:$PORT/servers?bash=\" />") > "$DOC_ROOT/servers"
+        else 
+        echo $(cat "./server";cat $DOC_ROOT/debug;echo "<meta http-equiv=\"refresh\" content=\"10; url=http://$MYIP:$PORT/servers?bash=\" />") > "$DOC_ROOT/servers"        
+        fi
     fi
     if [ $command == beep ];then
            echo 'beepsoundccccccccccc ' > /dev/dsp
@@ -79,6 +85,7 @@ if [ $command ]; then
     fi
     if [ $command == debug ];then   
           cat $DOC_ROOT/debug
+          #  bash sed new line <br>
     fi
 
     if [ $command == chat ];then
