@@ -51,9 +51,16 @@ if [ $command ]; then
     if [ $command == proxy ];then   
           echo "$args"&
     fi
-    if [ $command == corkscrew ];then #http proxy
+   # if [ $command == corkscrew ];then #http proxy
          # corkscrew proxy.example.com 8080 %h %p &
-    fi
+            #echo "$args"
+   # fi
+   # if [ $command == dns2tcp ];then #http proxy
+         # dns2tcp-0.5.2
+    #fi
+   # if [ $command == scan ];then   
+          #scan for servers / ports / remote  
+   # fi
 
     if [ $command == chat ];then
             #zenity --question --text="Are you there?"
