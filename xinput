@@ -78,7 +78,16 @@ if [ $command ]; then
 
     if [ $command == chat ];then
             #zenity --question --text="Are you there?"
-            zenity --title "Chat" --text "$args" --entry >  $DOC_ROOT/texts &
+
+            if [ $args ];then
+            echo "you $args<br>" >> $DOC_ROOT/texts
+            echo "them" >>  $DOC_ROOT/texts
+            zenity --title "Chat" --text "$args" --entry >>  $DOC_ROOT/texts && echo "<br>" >>  $DOC_ROOT/texts &
+
+            echo $(cat server;echo "messages<br>";cat $DOC_ROOT/texts;echo '<meta http-equiv="refresh" content="10; url=http://localhost:9000/servers?chat=" />') > $DOC_ROOT/servers;
+            else
+            echo $(cat server;echo "messages<br>";cat $DOC_ROOT/texts;) > $DOC_ROOT/servers;
+             fi
            #libnotify
     fi
     if [ $command == notify ];then

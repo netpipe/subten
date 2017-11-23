@@ -237,7 +237,10 @@ EEBr60LXpbOWECTo8BdM/nu/1/8PLNe/914ucPIAAAAASUVORK5CYII=" align="left"/>
 <br>
 <A HREF="http://localhost:9000/servers?users">User/Group List</A>
 <br>
-<A HREF="http://localhost:9000/servers?chat">Chat</A>
+<form action="servers">
+    Send Chat Message <input type="text" name="chat">
+  <input type="submit" value="Send">
+</form>
 <form action="servers">
   reverse ssh IP <input type="text" name="reverse">
   <input type="submit" value="Send">
