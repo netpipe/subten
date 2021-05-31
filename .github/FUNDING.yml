@@ -1,3 +1,5 @@
 # These are supported funding model platforms
 
-github: netpipe
+github: [netpipe]
+patreon: netpipe
+custom: ["https://www.paypal.me/netpipe", netpipe.ca]
