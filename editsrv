@@ -1,7 +1,23 @@
 <html>
+    <header>
+        <!-- By the way, this is not the actual html file, just a generic example.
+        base64 --decode
+        cat javascriptfile.js | base64
+
+        -->
+        <script src="data:application/javascript;charset=utf-8;base64,ZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCBwcmludE1vdXNlUG9zLCB0cnVlKTsK
+ZnVuY3Rpb24gcHJpbnRNb3VzZVBvcyhlKXsKCiAgICAgIGN1cnNvclggPSBlLnBhZ2VYOwogICAg
+ICBjdXJzb3JZPSBlLnBhZ2VZOwogICAgICAkKCAiI3Rlc3QiICkudGV4dCggInBhZ2VYOiAiICsg
+Y3Vyc29yWCArIixwYWdlWTogIiArIGN1cnNvclkgKTsKfQoK"></script>
+         
+
+    </header>
 <body bgcolor="000000" text="093e66">
 
-
+        <div id="example">
+            <p id="test">x: , y:</p>
+        </div>
+        
 <img alt="Embedded Image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABuCAIAAABJObGsAAAABmJLR0QACQA+AGZ+d9X5AAAACXBI
 WXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QsXBBUfFmZ/jQAAIABJREFUeNrdvVeTXEeSLhge4sg8
 qbOyJICCINmUM7fv2L1ja/dhbZ/3z+yPnDbbmb0z0+wmKABWAaUrdeZRIX0fIqsAkBBVIMFmTxoe
